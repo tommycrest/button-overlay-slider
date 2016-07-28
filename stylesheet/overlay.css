@@ -1,0 +1,47 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Federo);
+
+body {
+    /* general styles */
+    padding: 30px;
+    font-family: 'Open Sans', sans-serif;
+    background: white;
+    color: #fff;
+}
+
+/* overlay styles, all needed */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* just some content with arbitrary styles for explanation purposes */
+.modal {
+    top: 200px;
+    line-height: 200px;
+	position: relative;
+    margin-top: -100px;
+    margin-left: -150px;
+	margin: auto;
+    background-color: rgba(0,0,0,0.5);
+	/*
+		if you want a border-radius 
+	*/
+    /*border-radius: 5px;*/
+    text-align: center;
+    z-index: 10000; /* 1px higher than the overlay layer */
+	width:580px;
+}
+
+.content {
+    margin: 30px;
+}
+
+h1 {
+    font-family: 'Federo', sans-serif;
+}

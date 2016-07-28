@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+ <meta charset="UTF-8">
+ <title>Button Overlay Example</title>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="stylesheet/overlay.css" ></link>
+ <style type="text/css">
+  [role="button"] {
+   padding:3px;
+   border: 1px solid #CCC;
+  }
+  [role="button"][aria-pressed="true"] {
+   border: 2px solid #000;
+  }
+  .slider {
+  	margin: auto;
+  	width: 580px; /* Update to your slider width */
+  	height: 250px; /* Update to your slider height */
+  	position: relative;
+  	overflow: hidden;
+  }
+
+  .slider li {
+	  display: none;
+	  position: absolute; 
+	  top: 0; 
+	  left: 0; 
+  }
+ 
+ 
+ </style>
+ <script type="text/javascript">
+  function handleBtnClick(event) {
+    event = event || window.event;
+    var pressed = event.target.getAttribute("aria-pressed") == "true";
+    //change the aria-pressed value as the button is toggled:
+    event.target.setAttribute("aria-pressed", pressed ? "false" : "true");
+    //... (perform the button's logic here)
+  }
+
+  function handleBtnKeyUp(event) {
+    event = event || window.event;
+    if (event.keyCode === 32) { // check for Space key
+      handleBtnClick(event);
+    }
+  }
+ 
+  function overlayCarousel() {
+	  $('.overlay').css('display','block');
+	  $('.show').css('display','block');
+	  
+	  var $slider = $('.slider'); //Class for the carousel slider 
+	  var $slide = 'li'; // actually we use UL so searching for LI but we can IMG
+
+	  var $transition_time = 500; 
+	  var $time_between_slides = 3000; 
+
+	  function slides(){
+		return $slider.find($slide);
+	  }
+
+  	  slides().fadeOut();
+
+  	  //Setting the active classes
+	  slides().first().addClass('active');
+	  slides().first().fadeIn($transition_time);
+
+	  // autoscrolling of the images in the carouseld
+	  $interval = setInterval(
+		function(){
+		  var $i = $slider.find($slide + '.active').index();
+
+		  slides().eq($i).removeClass('active');
+		  slides().eq($i).fadeOut($transition_time);
+
+		  if (slides().length == $i + 1) $i = -1; // loop to start
+
+		  slides().eq($i + 1).fadeIn($transition_time);
+		  slides().eq($i + 1).addClass('active');
+		}, $transition_time +  $time_between_slides 
+	  );
+  }
+
+  //Function on ready
+  $(document).ready(function() {
+	 //overalyCarousel();
+	  
+	  
+  });
+  
+ </script>
+	
+</head>
+<body>
+	<button onclick="overlayCarousel();" >Cliccami!! :)</button>
+	<div class="overlay" style="display:none;"></div>
+	<div class="show" style="display:none;">
+	<div class="modal">
+			<ul class="slider">
+			  <li>
+				<img src="images/first.jpg"> 
+			  </li>
+			  <li>
+				<img src="images/second.jpg"> 
+			  </li>
+			  <li>
+				<img src="images/third.jpg"> 
+			  </li>
+			  <li>
+				<img src="images/fourth.jpg">
+			  </li>
+			</ul>
+		</div>
+	</div>
+	<!-- p>Overlay button loader with trigger mode</p -->
+	
+ 	<!-- button role="button" aria-pressed="false" onclick="handleBtnClick(event)" onKeyUp="handleBtnKeyUp(event)">Overaly</button -->
+	<!-- ul class="slider">
+	  <li>
+		<img src="images/first.jpg"> 
+	  </li>
+	  <li>
+		<img src="images/second.jpg"> 
+	  </li>
+	  <li>
+		<img src="images/third.jpg"> 
+	  </li>
+	  <li>
+		<img src="images/fourth.jpg">
+	  </li>
+	</ul -->
+</body>
+</html>
